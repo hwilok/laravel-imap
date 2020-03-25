@@ -14,7 +14,7 @@ namespace Webklex\IMAP;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
+use Symfony\Component\Mime\MimeTypes;
 use Webklex\IMAP\Exceptions\MaskNotFoundException;
 use Webklex\IMAP\Exceptions\MethodNotFoundException;
 use Webklex\IMAP\Support\Masks\AttachmentMask;
@@ -294,7 +294,7 @@ class Attachment {
      * @return string|null
      */
     public function getExtension(){
-        return ExtensionGuesser::getInstance()->guess($this->getMimeType());
+        return MimeTypes::getDefault()->getExtensions($this->getMimeType())[0] ?? "";
     }
 
     /**
